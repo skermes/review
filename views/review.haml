@@ -1,0 +1,13 @@
+!!!
+%html
+	%head
+		%title
+			#{@title} review
+		%link{ :rel => 'stylesheet', :type => 'text/css', :href => '/review.css' }
+		%script{ :src => '/review.js', :type => 'text/javascript'}
+	%body
+		%div#diffcontainer
+			- @snippets.each do |snippet|
+				~ "<span class=\"snippet #{snippet[:type]}\">#{snippet[:content]}</span>"
+		%div#noteprototype
+			%textarea

@@ -1,0 +1,57 @@
+body {
+	background-color:#000000;	
+}
+
+#diffcontainer {
+	margin-left:10em;
+}
+
+.snippet {	
+	font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
+	white-space:pre;
+}
+
+.raw {
+	color:#FFFFFF;
+}
+
+.subtraction {
+	color:rgb(220, 80, 70);
+}
+
+.addition {
+	color:rgb(165, 194, 92);
+}
+
+.separator {
+	color:rgb(232, 188, 100);
+}
+
+.header {
+	color:rgb(43, 145, 175);
+}
+
+#noteprototype {
+	display:none;
+}
+
+.note {
+	position:absolute;
+	width:50em;
+	height:30em;
+	color:#FFFFFF;
+}
+
+.note textarea {
+	font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
+	border:none;
+	background-color:transparent;
+	color:#FFFFFF;
+	font-size:1em;
+	min-height:100%;
+	width:100%;
+}
+
+.note textarea:focus {
+	outline:none;
+}
