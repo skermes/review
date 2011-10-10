@@ -1,5 +1,5 @@
 body {
-	background-color:#000000;	
+	background-color:rgb(0, 0, 0);	
 }
 
 #diffcontainer {
@@ -12,11 +12,11 @@ body {
 }
 
 .raw {
-	color:#FFFFFF;
+	color:rgb(230, 230, 230);
 }
 
 .subtraction {
-	color:rgb(220, 80, 70);
+	color:rgb(198, 66, 84);
 }
 
 .addition {
@@ -24,7 +24,7 @@ body {
 }
 
 .separator {
-	color:rgb(232, 188, 100);
+	color:rgb(255, 198, 109);
 }
 
 .header {
