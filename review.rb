@@ -10,9 +10,9 @@ def git(cmd)
 	%x[cd #{REPO} && git #{cmd}]
 end
 
-get '/review/:branch' do
+def review(from_branch, to_branch)
 	#git('fetch')
-	diff = git("diff -U10 --ignore-space-change master..#{params[:branch]}")
+	diff = git("diff -U10 --ignore-space-change #{from_branch}..#{to_branch}")
 	@snippets = []
 	diff.each_line do |line|
 		if line.start_with?('diff')
@@ -31,8 +31,16 @@ get '/review/:branch' do
 			@snippets << { :content => line, :type => :raw }
 		end
 	end
-	@title = params[:branch]
+	@title = to_branch
 	haml :review, :escape_html => true
+end
+
+get '/review/:branch' do
+	review('master', params[:branch])
+end
+
+get '/review/:from/to/:to' do
+	review(params[:from], params[:to])
 end
 
 post '/:id' do
