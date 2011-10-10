@@ -8,6 +8,6 @@
 	%body
 		%div#diffcontainer
 			- @snippets.each do |snippet|
-				~ "<span class=\"snippet #{snippet[:type]}\">#{snippet[:content]}</span>"
+				%span.snippet{ :class => "#{snippet[:type]}" } #{snippet[:content].chomp}
 		%div#noteprototype
 			%textarea

@@ -32,7 +32,7 @@ get '/review/:branch' do
 		end
 	end
 	@title = params[:branch]
-	haml :review
+	haml :review, :escape_html => true
 end
 
 post '/:id' do

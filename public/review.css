@@ -9,6 +9,7 @@ body {
 .snippet {	
 	font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
 	white-space:pre;
+	display:block;
 }
 
 .raw {
