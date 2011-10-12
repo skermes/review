@@ -12,7 +12,7 @@ end
 
 def review(from_branch, to_branch)
 	#git('fetch')
-	diff = git("diff -U10 --ignore-space-change #{from_branch}..#{to_branch}")
+	diff = git("diff -U10 --ignore-space-change #{from_branch}...#{to_branch}")
 	@snippets = []
 	diff.each_line do |line|
 		if line.start_with?('diff')
