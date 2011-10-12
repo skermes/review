@@ -1,6 +1,28 @@
 var uniqueUrl = false;
 var dirty = false;
 
+function startDrag(note, startEvent) {
+	var noteOriginX = parseInt(note.style.left.substring(0, note.style.left.length - 2));
+	var noteOriginY = parseInt(note.style.top.substring(0, note.style.top.length - 2));
+	var moveHandler = function(dragEvent) { drag(note, dragEvent, startEvent.clientX, startEvent.clientY, noteOriginX, noteOriginY); };
+	var upHandler = function(upEvent) { endDrag(note, moveHandler); };
+	document.addEventListener('mousemove', moveHandler);
+	document.addEventListener('mouseup', upHandler);
+}
+
+function drag(note, event, mouseOriginX, mouseOriginY, noteOriginX, noteOriginY) {
+	var offsetX = (event.clientX - mouseOriginX);
+	var offsetY = (event.clientY - mouseOriginY);
+	note.style.left = noteOriginX + offsetX + 'px';
+	note.style.top = noteOriginY + offsetY + 'px';
+}
+
+function endDrag(note, moveHandler) {
+	document.removeEventListener('mousemove', moveHandler);
+	// arguments.callee is this function
+	document.removeEventListener('mouseup', arguments.callee);
+}
+
 function resizeNote(note) {
 	note.children[1].innerText = note.children[0].value;
 }
@@ -15,6 +37,7 @@ function addNote(x, y) {
 		dirty = true;
 		resizeNote(newNote);
 	});
+	newNote.addEventListener('mousedown', function(downEvent) { startDrag(newNote, downEvent); });
 	resizeNote(newNote);
 	document.body.appendChild(newNote);
 	newNote.children[0].focus();
