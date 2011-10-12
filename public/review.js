@@ -1,6 +1,10 @@
 var uniqueUrl = false;
 var dirty = false;
 
+function resizeNote(note) {
+	note.children[1].innerText = note.children[0].value;
+}
+
 function addNote(x, y) {
 	var newNote = document.getElementById('noteprototype').cloneNode(true);
 	newNote.id = '';
@@ -9,7 +13,9 @@ function addNote(x, y) {
 	newNote.style.top = y + 'px';
 	newNote.addEventListener('keydown', function() {
 		dirty = true;
+		resizeNote(newNote);
 	});
+	resizeNote(newNote);
 	document.body.appendChild(newNote);
 	newNote.children[0].focus();
 	dirty = true;

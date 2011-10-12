@@ -6,8 +6,13 @@ body {
 	margin-left:10em;
 }
 
-.snippet {	
+.snippet,
+.note textarea,
+.note .notesizer {
 	font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
+}
+
+.snippet {	
 	white-space:pre;
 	display:block;
 }
@@ -38,21 +43,33 @@ body {
 
 .note {
 	position:absolute;
-	width:50em;
-	height:30em;
 	color:#FFFFFF;
 }
 
 .note textarea {
-	font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
 	border:none;
 	background-color:transparent;
 	color:#FFFFFF;
 	font-size:1em;
-	min-height:100%;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	height:100%;
 	width:100%;
+	position:absolute;
+	overflow:hidden;
 }
 
 .note textarea:focus {
 	outline:none;
+}
+
+.note .notesizer {
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	width:100%;
+	padding:15px; /* same as textarea */
+	padding-bottom: 1.15em; /* A bit more than one additional line of text. */
+	visibility:hidden;
 }
