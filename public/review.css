@@ -17,7 +17,8 @@ body {
 	display:block;
 }
 
-.raw {
+.raw,
+.note textarea {
 	color:rgb(230, 230, 230);
 }
 
@@ -43,13 +44,11 @@ body {
 
 .note {
 	position:absolute;
-	color:#FFFFFF;
 }
 
 .note textarea {
-	border:none;
-	background-color:transparent;
-	color:#FFFFFF;
+	border:1px solid rgb(40, 40, 40);
+	background-color:rgb(20, 20, 20);
 	font-size:1em;
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;
