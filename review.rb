@@ -3,7 +3,11 @@ require 'rubygems'
 require 'haml'
 require './word-diff-parse'
 
+# site-specific configuration
 REPO = 'c:\\users\\skermes\\projects\\css'
+REMOTE_BRANCHES = false
+REMOTE_NAME = 'origin'
+
 set :haml, :format => :html5, :ugly => true
 
 def git(cmd)
@@ -11,8 +15,11 @@ def git(cmd)
 end
 
 def review(from_branch, to_branch)
-	git('fetch')
-	diff = git("diff -U10 --ignore-space-change #{from_branch}...#{to_branch}")
+	if REMOTE_BRANCHES
+		git('fetch')
+	end
+	branch_prefix = REMOTE_BRANCHES ? REMOTE_NAME + '/' : ''
+	diff = git("diff -U10 --ignore-space-change #{branch_prefix}#{from_branch}...#{branch_prefix}#{to_branch}")
 	@snippets = []
 	diff.each_line do |line|
 		if line.start_with?('diff')
