@@ -68,7 +68,7 @@ body {
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 	width:100%;
-	padding:15px; /* same as textarea */
+	padding:15px;
 	padding-bottom: 1.15em; /* A bit more than one additional line of text. */
 	visibility:hidden;
 }
