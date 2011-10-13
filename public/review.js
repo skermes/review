@@ -1,6 +1,32 @@
 var uniqueUrl = false;
 var dirty = false;
 
+function addClass(name, elem) {
+	var classes = elem.className.split(' ').filter(function(cls) { return cls.trim().length > 0; });
+	//alert('adding ' + name + ' to [' + classes + ']');
+	var alreadyHere = false;
+	for (var i = 0; i < classes.length; i++) {
+		if (classes[i] == name) {
+			alreadyHere = true;
+			break;
+		}	
+	}
+	if (!alreadyHere) {
+		elem.className += (classes.length > 0 ? ' ' : '') + name;
+	}
+}
+
+function removeClass(name, elem) {
+	var classes = elem.className.split(' ');
+	//alert('removing ' + name + ' from [' + classes + ']');
+	elem.className = '';
+	for (var i = 0; i < classes.length; i++) {
+		if (classes[i] != name) {
+			elem.className = elem.className +(elem.className.length > 0 ? ' ' : '') + classes[i];
+		}	
+	}
+}
+
 function startDrag(note, startEvent) {
 	var noteOriginX = parseInt(note.style.left.substring(0, note.style.left.length - 2));
 	var noteOriginY = parseInt(note.style.top.substring(0, note.style.top.length - 2));
@@ -8,6 +34,7 @@ function startDrag(note, startEvent) {
 	var upHandler = function(upEvent) { endDrag(note, moveHandler); };
 	document.addEventListener('mousemove', moveHandler);
 	document.addEventListener('mouseup', upHandler);
+	addClass('beingdragged', note);
 }
 
 function drag(note, event, mouseOriginX, mouseOriginY, noteOriginX, noteOriginY) {
@@ -21,6 +48,7 @@ function endDrag(note, moveHandler) {
 	document.removeEventListener('mousemove', moveHandler);
 	// arguments.callee is this function
 	document.removeEventListener('mouseup', arguments.callee);
+	removeClass('beingdragged', note);
 }
 
 function resizeNote(note) {
@@ -30,7 +58,7 @@ function resizeNote(note) {
 function addNote(x, y) {
 	var newNote = document.getElementById('noteprototype').cloneNode(true);
 	newNote.id = '';
-	newNote.className = 'note';
+	addClass('note', newNote);
 	newNote.style.left = x + 'px';
 	newNote.style.top = y + 'px';
 	newNote.addEventListener('keydown', function() {

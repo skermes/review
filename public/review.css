@@ -72,3 +72,8 @@ body {
 	padding-bottom: 1.15em; /* A bit more than one additional line of text. */
 	visibility:hidden;
 }
+
+.beingdragged,
+.beingdragged textarea {
+	cursor:move;
+}
