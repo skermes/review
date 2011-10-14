@@ -57,6 +57,7 @@ body {
 	width:100%;
 	position:absolute;
 	overflow:hidden;
+	box-shadow:0 0 0 .6em rgb(0,0,0);
 }
 
 .note textarea:focus {
