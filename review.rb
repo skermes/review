@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'rubygems'
 require 'haml'
-require './word-diff-parse'
+require './diffparse'
 
 # site-specific configuration
 REPO = 'c:\\users\\skermes\\projects\\css'
