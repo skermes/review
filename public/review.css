@@ -8,7 +8,8 @@ body {
 
 .snippet,
 .note textarea,
-.note .notesizer {
+.note .notesizer,
+.note .noteclose {
 	font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
 }
 
@@ -46,7 +47,7 @@ body {
 	position:absolute;
 }
 
-.note textarea {
+.note textarea {	
 	border:1px solid rgb(40, 40, 40);
 	background-color:rgb(20, 20, 20);
 	font-size:1em;
@@ -77,4 +78,23 @@ body {
 .beingdragged,
 .beingdragged textarea {
 	cursor:move;
+}
+
+.note .noteclose {
+	color:rgb(198, 66, 84);
+	background-color:rgb(40, 40, 40);
+	z-index:2;
+	position:absolute;
+	right:0;
+	top:0;
+	width:1em;
+	height:1em;
+	text-align:center;
+	padding-bottom:.3em;
+	cursor:pointer;
+	visibility:hidden;
+}
+
+.note:hover .noteclose {
+	visibility:visible;
 }

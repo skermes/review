@@ -3,7 +3,6 @@ var dirty = false;
 
 function addClass(name, elem) {
 	var classes = elem.className.split(' ').filter(function(cls) { return cls.trim().length > 0; });
-	//alert('adding ' + name + ' to [' + classes + ']');
 	var alreadyHere = false;
 	for (var i = 0; i < classes.length; i++) {
 		if (classes[i] == name) {
@@ -18,7 +17,6 @@ function addClass(name, elem) {
 
 function removeClass(name, elem) {
 	var classes = elem.className.split(' ');
-	//alert('removing ' + name + ' from [' + classes + ']');
 	elem.className = '';
 	for (var i = 0; i < classes.length; i++) {
 		if (classes[i] != name) {
@@ -55,6 +53,10 @@ function resizeNote(note) {
 	note.children[1].innerText = note.children[0].value;
 }
 
+function closeNote(note) {
+	document.body.removeChild(note);
+}
+
 function addNote(x, y) {
 	var newNote = document.getElementById('noteprototype').cloneNode(true);
 	newNote.id = '';
@@ -66,6 +68,7 @@ function addNote(x, y) {
 		resizeNote(newNote);
 	});
 	newNote.addEventListener('mousedown', function(downEvent) { startDrag(newNote, downEvent); });
+	newNote.children[2].addEventListener('mouseup', function(upEvent) { closeNote(newNote); });
 	resizeNote(newNote);
 	document.body.appendChild(newNote);
 	newNote.children[0].focus();
