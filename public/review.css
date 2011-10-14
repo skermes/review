@@ -6,13 +6,20 @@ body {
 	margin-left:10em;
 }
 
-.snippet {	
+.snippet,
+.note textarea,
+.note .notesizer,
+.note .noteclose {
 	font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
+}
+
+.snippet {	
 	white-space:pre;
 	display:block;
 }
 
-.raw {
+.raw,
+.note textarea {
 	color:rgb(230, 230, 230);
 }
 
@@ -38,21 +45,56 @@ body {
 
 .note {
 	position:absolute;
-	width:50em;
-	height:30em;
-	color:#FFFFFF;
 }
 
-.note textarea {
-	font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
-	border:none;
-	background-color:transparent;
-	color:#FFFFFF;
+.note textarea {	
+	border:1px solid rgb(40, 40, 40);
+	background-color:rgb(20, 20, 20);
 	font-size:1em;
-	min-height:100%;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	height:100%;
 	width:100%;
+	position:absolute;
+	overflow:hidden;
+	box-shadow:0 0 0 .6em rgb(0,0,0);
 }
 
 .note textarea:focus {
 	outline:none;
+}
+
+.note .notesizer {
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	width:100%;
+	padding:15px;
+	padding-bottom: 1.15em; /* A bit more than one additional line of text. */
+	visibility:hidden;
+}
+
+.beingdragged,
+.beingdragged textarea {
+	cursor:move;
+}
+
+.note .noteclose {
+	color:rgb(198, 66, 84);
+	background-color:rgb(40, 40, 40);
+	z-index:2;
+	position:absolute;
+	right:0;
+	top:0;
+	width:1em;
+	height:1em;
+	text-align:center;
+	padding-bottom:.3em;
+	cursor:pointer;
+	visibility:hidden;
+}
+
+.note:hover .noteclose {
+	visibility:visible;
 }
