@@ -1,16 +1,16 @@
 !!!
 %html
-	%head
-		%title
-			#{@title} review
-		%link{ :rel => 'stylesheet', :type => 'text/css', :href => '/review.css' }
-		%script{ :src => '/review.js', :type => 'text/javascript'}
-	%body
-		%div#diffcontainer
-			- @snippets.each do |snippet|
-				%span.snippet{ :class => "#{snippet[:type]}" } #{snippet[:content].chomp}
-		%div#noteprototype
-			%textarea
-			%div.notesizer
-			%div.noteclose
-				X
+    %head
+        %title
+            #{@title} review
+        %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/review.css' }
+        %script{ :src => '/review.js', :type => 'text/javascript'}
+    %body
+        %div#diffcontainer
+            - @snippets.each do |snippet|
+                %span.snippet{ :class => "#{snippet[:type]}" } #{snippet[:content].chomp}
+        %div#noteprototype.note
+            %textarea
+            %div.notesizer
+            %div.noteclose
+                X

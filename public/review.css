@@ -1,100 +1,100 @@
 body {
-	background-color:rgb(0, 0, 0);	
+    background-color:rgb(0, 0, 0);    
 }
 
 #diffcontainer {
-	margin-left:10em;
+    margin-left:10em;
 }
 
 .snippet,
 .note textarea,
 .note .notesizer,
 .note .noteclose {
-	font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
+    font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
 }
 
-.snippet {	
-	white-space:pre;
-	display:block;
+.snippet {    
+    white-space:pre;
+    display:block;
 }
 
 .raw,
 .note textarea {
-	color:rgb(230, 230, 230);
+    color:rgb(230, 230, 230);
 }
 
 .subtraction {
-	color:rgb(198, 66, 84);
+    color:rgb(198, 66, 84);
 }
 
 .addition {
-	color:rgb(165, 194, 92);
+    color:rgb(165, 194, 92);
 }
 
 .separator {
-	color:rgb(255, 198, 109);
+    color:rgb(255, 198, 109);
 }
 
 .header {
-	color:rgb(43, 145, 175);
+    color:rgb(43, 145, 175);
 }
 
 #noteprototype {
-	display:none;
+    display:none;
 }
 
 .note {
-	position:absolute;
+    position:absolute;
 }
 
-.note textarea {	
-	border:1px solid rgb(40, 40, 40);
-	background-color:rgb(20, 20, 20);
-	font-size:1em;
-	box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	-webkit-box-sizing:border-box;
-	height:100%;
-	width:100%;
-	position:absolute;
-	overflow:hidden;
-	box-shadow:0 0 0 .6em rgb(0,0,0);
+.note textarea {    
+    border:1px solid rgb(40, 40, 40);
+    background-color:rgb(20, 20, 20);
+    font-size:1em;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    height:100%;
+    width:100%;
+    position:absolute;
+    overflow:hidden;
+    box-shadow:0 0 0 .6em rgb(0,0,0);
 }
 
 .note textarea:focus {
-	outline:none;
+    outline:none;
 }
 
 .note .notesizer {
-	box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	-webkit-box-sizing:border-box;
-	width:100%;
-	padding:15px;
-	padding-bottom: 1.15em; /* A bit more than one additional line of text. */
-	visibility:hidden;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    width:100%;
+    padding:15px;
+    padding-bottom: 1.15em; /* A bit more than one additional line of text. */
+    visibility:hidden;
 }
 
 .beingdragged,
 .beingdragged textarea {
-	cursor:move;
+    cursor:move;
 }
 
 .note .noteclose {
-	color:rgb(198, 66, 84);
-	background-color:rgb(40, 40, 40);
-	z-index:2;
-	position:absolute;
-	right:0;
-	top:0;
-	width:1em;
-	height:1em;
-	text-align:center;
-	padding-bottom:.3em;
-	cursor:pointer;
-	visibility:hidden;
+    color:rgb(198, 66, 84);
+    background-color:rgb(40, 40, 40);
+    z-index:2;
+    position:absolute;
+    right:0;
+    top:0;
+    width:1em;
+    height:1em;
+    text-align:center;
+    padding-bottom:.3em;
+    cursor:pointer;
+    visibility:hidden;
 }
 
 .note:hover .noteclose {
-	visibility:visible;
+    visibility:visible;
 }
