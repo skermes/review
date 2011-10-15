@@ -4,12 +4,13 @@
         %title
             #{@title} review
         %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/review.css' }
-        %script{ :src => '/review.js', :type => 'text/javascript'}
+        %script{ :src => '/review.js', :type => 'text/javascript' }
+        %script{ :src => '/objects.js', :type => 'text/javascript' }
     %body
         %div#diffcontainer
             - @snippets.each do |snippet|
                 %span.snippet{ :class => "#{snippet[:type]}" } #{snippet[:content].chomp}
-        %div#noteprototype.note
+        %div#notetemplate.note
             %textarea
             %div.notesizer
             %div.noteclose
