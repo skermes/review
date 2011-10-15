@@ -39,60 +39,89 @@ function Class(name) {
     };
 }
 
-function Note(template, reportChange, unlinkNote, windowPosition, position) {
-    var note = {
-        element: template.cloneNode(true),        
-    };    
-    note.resize = function() {
-        note.element.children[1].innerText = note.element.children[0].value;
-    };
-    note.position = function() {
-        var rect = note.element.getBoundingClientRect();
-        var wndw = windowPosition();
-        return Position(wndw.x + rect.left,
-                        wndw.y + rect.top);
-    };
-    note.saveText = function() {
-        // This makes sure the note content is reflected in the HTML,
-        // so that it's preserved when posted to the server.
-        var value = note.element.children[0].value;
-        if (value) {
-            note.element.children[0].innerText = value;
-        }
-    };
-
-    note.element.id = null;
-    note.element.style.left = position.x + 'px';
-    note.element.style.top = position.y + 'px';
-    note.element.addEventListener('keydown', function(keyEvent) {
-        reportChange();
-        note.resize();
-    });
-    note.element.children[2].addEventListener('mouseup', function(upEvent) {
-        unlinkNote(note);
-    });
-    note.element.addEventListener('mousedown', function(downEvent) {
-        var noteOrigin = note.position();
-        var mouseOrigin = Position(downEvent.clientX, downEvent.clientY);
-        var moveHandler = function(dragEvent) {
-            var offsetX = dragEvent.clientX - mouseOrigin.x;
-            var offsetY = dragEvent.clientY - mouseOrigin.y;
-            note.element.style.left = noteOrigin.x + offsetX + 'px';
-            note.element.style.top = noteOrigin.y + offsetY + 'px';
+Note = (function() {
+    var keyHandler = function(note, reportChange) {
+        return function(keyEvent) {
             reportChange();
+            note.resize();
         };
-        var dragClass = Class('beingdragged');
-        var upHandler = function(upEvent) {
-            note.element.removeEventListener('mousemove', moveHandler);
-            // arguments.callee is this function
-            note.element.removeEventListener('mouseup', arguments.callee);
-            dragClass.remove(note.element);
+    };
+    var dragHandler = function(note, reportChange, windowPosition) {
+        return function(downEvent) {
+            var noteOrigin = note.position();
+            var mouseOrigin = Position(downEvent.clientX, downEvent.clientY);
+            var moveHandler = function(dragEvent) {
+                var offsetX = dragEvent.clientX - mouseOrigin.x;
+                var offsetY = dragEvent.clientY - mouseOrigin.y;
+                note.element.style.left = noteOrigin.x + offsetX + 'px';
+                note.element.style.top = noteOrigin.y + offsetY + 'px';
+                reportChange();
+            };
+            var dragClass = Class('beingdragged');
+            var upHandler = function(upEvent) {
+                note.element.removeEventListener('mousemove', moveHandler);
+                // arguments.callee is this function
+                note.element.removeEventListener('mouseup', arguments.callee);
+                dragClass.remove(note.element);
+            };
+            note.element.addEventListener('mousemove', moveHandler);
+            note.element.addEventListener('mouseup', upHandler);
+            dragClass.add(note.element);
         };
-        note.element.addEventListener('mousemove', moveHandler);
-        note.element.addEventListener('mouseup', upHandler);
-        dragClass.add(note.element);
-    });
+    };
+    var closeHandler = function(note, unlinkNote) {
+        return function(downEvent) {
+            unlinkNote(note);
+        };
+    };
+    var setup = function(element, reportChange, unlinkNote, windowPosition) {
+        var note = {
+            element: element
+        };
+        note.resize = function() {
+            note.element.children[1].innerText = note.element.children[0].value;
+        };
+        note.position = function() {
+            var rect = note.element.getBoundingClientRect();
+            var wndw = windowPosition();
+            return Position(wndw.x + rect.left,
+                            wndw.y + rect.top);
+        };
+        note.saveText = function() {
+            // This makes sure the note content is reflected in the HTML,
+            // so that it's preserved when posted to the server.
+            var value = note.element.children[0].value;
+            if (value) {
+                note.element.children[0].innerText = value;
+            }
+        };
+        note.element.addEventListener('keydown', 
+                                      keyHandler(note, reportChange));
+        note.element.children[2].addEventListener('mouseup',
+                                                  closeHandler(note, unlinkNote));
+        note.element.addEventListener('mousedown', 
+                                      dragHandler(note, reportChange, windowPosition));
+        return note;
+    };
 
-    note.resize();
-    return note;
-}
+    var noteClass = { };
+    // create is for making new notes on double click
+    noteClass.create = function(template, reportChange, unlinkNote, windowPosition, position) {
+        var note = setup(template.cloneNode(true), reportChange, unlinkNote,
+                         windowPosition);       
+
+        note.element.id = null;
+        note.element.style.left = position.x + 'px';
+        note.element.style.top = position.y + 'px';
+        
+        note.resize();
+        return note;  
+    };
+    // open is for wiring event handlers to notes
+    // in pages that already have them.
+    noteClass.open = function(element, reportChange, unlinkNote, windowPosition) {
+        var note = setup(element, reportChange, unlinkNote, windowPosition);
+        return note;
+    };
+    return noteClass;
+})();

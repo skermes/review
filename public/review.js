@@ -13,13 +13,14 @@ function ReviewController() {
     };
     controller.removeNote = function(note) {
         document.body.removeChild(note.element);
+        controller.noteChanged();
     };
 
     controller.addNote = function(position) {
         var template = document.getElementById('notetemplate');
-        var note = Note(template, controller.noteChanged, 
-                        controller.removeNote, windowPosition,
-                        position);
+        var note = Note.create(template, controller.noteChanged, 
+                               controller.removeNote, windowPosition,
+                               position);
         document.body.appendChild(note.element);
         note.element.children[0].focus();
         controller.dirty = true;
@@ -44,6 +45,15 @@ function ReviewController() {
     	request.send(data);
     	controller.dirty = false;
     };
+    controller.initAfterLoad = function() {
+    	var existingNotes = document.getElementsByClassName('note');
+	    for (var i = 0; i < existingNotes.length; i++) {
+	    	// Only the template note has an id
+	    	if (existingNotes[i].id) { continue; }
+	    	controller.notes.push(Note.open(existingNotes[i], controller.noteChanged,
+	    								    controller.removeNote, windowPosition));
+	    }
+    };    
 
     return controller;
 }
@@ -55,3 +65,9 @@ document.addEventListener('dblclick', function(click) {
 								wndw.y + click.clientY));
 });
 setInterval('controller.updateServer();', 10000);
+document.addEventListener('readystatechange', function(readyEvent) {
+	if (document.readyState == 'complete') {
+		controller.initAfterLoad();
+		document.removeEventListener(arguments.callee);
+	}
+});
