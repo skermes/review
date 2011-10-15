@@ -79,6 +79,7 @@ function Note(template, reportChange, unlinkNote, windowPosition, position) {
             var offsetY = dragEvent.clientY - mouseOrigin.y;
             note.element.style.left = noteOrigin.x + offsetX + 'px';
             note.element.style.top = noteOrigin.y + offsetY + 'px';
+            reportChange();
         };
         var dragClass = Class('beingdragged');
         var upHandler = function(upEvent) {
