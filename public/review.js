@@ -75,21 +75,39 @@ document.addEventListener('keyup', function(keyEvent) {
 	var targetTag = keyEvent.target.tagName.toLowerCase();
 	if (targetTag == 'textarea' || targetTag == 'input') {
 		return;
-	}	
-	if (keyEvent.keyCode == 74) { // j
-		var currentCenter = windowPosition().y + window.innerHeight / 2;
-		var closestDistance = Number.MAX_VALUE;
+	}
+
+	var distanceToClosestNote = function(distance) {
+		var closest = Number.MAX_VALUE;
 
 		for (var i = 0; i < controller.notes.length; i++) {
-			var note = controller.notes[i];			
-			var distance = Math.floor(note.position().y + (note.size().height / 2) - currentCenter);
-			if (distance > 0 && distance < closestDistance) {
-				closestDistance = distance;
+			var dist = distance(controller.notes[i]);;
+			if (dist > 0 && dist < closest) {
+				closest = dist;
 			}
 		}
 
-		if (closestDistance < Number.MAX_VALUE) {
-			window.scrollBy(0, closestDistance);
+		return closest;
+	};
+
+	if (keyEvent.keyCode == 74) { // j
+		var currentCenter = windowPosition().y + window.innerHeight / 2;
+		var distance = distanceToClosestNote(function(note) { 
+			return Math.floor(note.position().y + (note.size().height / 2) - currentCenter);
+		});
+		
+		if (distance < Number.MAX_VALUE) {
+			window.scrollBy(0, distance);
+		}
+	}
+	else if (keyEvent.keyCode == 75) { // k
+		var currentCenter = windowPosition().y + window.innerHeight / 2;
+		var distance = distanceToClosestNote(function(note) {
+			return Math.floor(currentCenter - (note.position().y + (note.size().height / 2)));
+		});
+
+		if (distance < Number.MAX_VALUE) {
+			window.scrollBy(0, -distance);
 		}
 	}
 });
