@@ -10,15 +10,20 @@ a:hover {
     text-decoration:none;
 }
 
-#container {
+.container {
     width:40em;
     margin:auto;
     display:table;
 }
 
-#header {
+.header {
     text-align:center;
     line-height:3em;
+    margin-top:2em;
+}
+
+.header:first-of-type {
+    margin-top:0;
 }
 
 .availablebranch {
@@ -49,4 +54,9 @@ a:hover {
 
 .branchselector input {
     display:none;
+}
+
+.reviewlink {
+    display:table-row;
+    text-align:center;
 }

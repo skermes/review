@@ -32,6 +32,12 @@ get '/review' do
 	@branches = output.lines.collect do |line|
 		line[amt_to_remove..-1].chomp
 	end
+	@reviews = Dir.entries('.').select do |entry|
+		entry.end_with?('.diffbody');
+	end
+	@reviews.collect! do |review|
+		review[0..-10]
+	end
 	haml :index
 end
 

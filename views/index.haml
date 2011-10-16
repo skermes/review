@@ -5,9 +5,9 @@
         %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/index.css' }
         %script{ :src => '/index.js', :type => 'text/javascript' }
     %body
-        %div#header
+        %div.header
             Available branches for reviewing
-        %div#container            
+        %div.container            
             - @branches.each do |branch|
                 %div.availablebranch
                     %div.branchname #{branch}
@@ -20,3 +20,9 @@
                         %a{ :href => '#'}
                             &#x21e8;
                         %input{ :type => 'text', :value => "#{branch}" }
+        %div.header
+            Reviews with notes attached
+        %div.container
+            - @reviews.each do |review|
+                %div.reviewlink
+                    %a{ :href => "/#{review}" } #{review}
