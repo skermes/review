@@ -71,3 +71,25 @@ document.addEventListener('readystatechange', function(readyEvent) {
 		document.removeEventListener(arguments.callee);
 	}
 });
+document.addEventListener('keyup', function(keyEvent) {
+	var targetTag = keyEvent.target.tagName.toLowerCase();
+	if (targetTag == 'textarea' || targetTag == 'input') {
+		return;
+	}	
+	if (keyEvent.keyCode == 74) { // j
+		var currentCenter = windowPosition().y + window.innerHeight / 2;
+		var closestDistance = Number.MAX_VALUE;
+
+		for (var i = 0; i < controller.notes.length; i++) {
+			var note = controller.notes[i];			
+			var distance = Math.floor(note.position().y + (note.size().height / 2) - currentCenter);
+			if (distance > 0 && distance < closestDistance) {
+				closestDistance = distance;
+			}
+		}
+
+		if (closestDistance < Number.MAX_VALUE) {
+			window.scrollBy(0, closestDistance);
+		}
+	}
+});
