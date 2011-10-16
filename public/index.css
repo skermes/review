@@ -1,0 +1,52 @@
+body,
+.branchselector select {
+    font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
+}
+
+a,
+a:visited,
+a:active,
+a:hover {
+    text-decoration:none;
+}
+
+#container {
+    width:40em;
+    margin:auto;
+    display:table;
+}
+
+#header {
+    text-align:center;
+    line-height:3em;
+}
+
+.availablebranch {
+    display:table-row;
+}
+
+.branchname,
+.masterlink,
+.branchselector {
+    display:table-cell;
+}
+
+.masterlink {
+    text-align:center;
+}
+
+.branchselector {
+    text-align:right;
+}
+
+.branchselector select {
+    width:60%;
+}
+
+.branchselector a {
+    font-size:125%;
+}
+
+.branchselector input {
+    display:none;
+}

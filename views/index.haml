@@ -1,0 +1,22 @@
+!!!
+%html
+    %head
+        %title review index
+        %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/index.css' }
+        %script{ :src => '/index.js', :type => 'text/javascript' }
+    %body
+        %div#header
+            Available branches for reviewing
+        %div#container            
+            - @branches.each do |branch|
+                %div.availablebranch
+                    %div.branchname #{branch}
+                    %div.masterlink
+                        %a{ :href => "/review/#{branch}" } master
+                    %div.branchselector                        
+                        %select
+                            - (@branches - [branch]).each do |parent|
+                                %option #{parent}
+                        %a{ :href => '#'}
+                            &#x21e8;
+                        %input{ :type => 'text', :value => "#{branch}" }

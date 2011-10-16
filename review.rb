@@ -25,6 +25,16 @@ def review(from_branch, to_branch)
     haml :review, :escape_html => true
 end
 
+get '/review' do
+	branch_switch = REMOTE_BRANCHES ? '-r' : ''
+	output = git("branch --no-color #{branch_switch}")
+	amt_to_remove = 2 + (REMOTE_BRANCHES ? REMOTE_NAME.length + 1 : 0)
+	@branches = output.lines.collect do |line|
+		line[amt_to_remove..-1].chomp
+	end
+	haml :index
+end
+
 get '/review/:branch' do
     review('master', params[:branch])
 end
