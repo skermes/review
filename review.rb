@@ -21,7 +21,8 @@ def review(from_branch, to_branch)
     branch_prefix = REMOTE_BRANCHES ? REMOTE_NAME + '/' : ''
     diff = git("diff -U10 --ignore-space-change #{branch_prefix}#{from_branch}...#{branch_prefix}#{to_branch}")
     @snippets = DiffParsing.parse(:unified, diff)
-    @title = to_branch
+    @branch = to_branch
+    @parent = from_branch
     haml :review, :escape_html => true
 end
 
