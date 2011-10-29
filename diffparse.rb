@@ -68,13 +68,16 @@ module DiffParsing
     end
 
     def DiffParsing.parse_unified_diff(diff)
+        header_prefixes = ['old mode', 'new mode', 'deleted file mode',
+                           'new file mode', 'copy from', 'copy to',
+                           'rename from', 'rename to', 'similarity index',
+                           'dissimilarity index', 'index', '---', '+++']
+
         snippets = []
         diff.each_line do |line|
             if line.start_with?('diff')
                 snippets << { :content => line, :type => :header }
-            elsif line.start_with?('index') or
-                  line.start_with?('---') or
-                  line.start_with?('+++')
+            elsif line.start_with?(*header_prefixes)
                 snippets[-1][:content] += line
             elsif line.start_with?('@@')
                 snippets << { :content => line, :type => :separator }
