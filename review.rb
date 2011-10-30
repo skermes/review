@@ -2,16 +2,12 @@ require 'sinatra'
 require 'rubygems'
 require 'haml'
 require './diffparse'
-
-# site-specific configuration
-REPO = 'c:\\users\\skermes\\projects\\css'
-REMOTE_BRANCHES = false
-REMOTE_NAME = 'origin'
+require './config'
 
 unless (File.directory?(REPO)) then
   raise <<EOS
 No Git repository at REPO,
-make sure to update the site-specific configuration:
+make sure to update the site-specific configuration in config.rb:
 #{REPO}
 EOS
 end

@@ -1,5 +1,17 @@
 Simple code review tool; runs diffs against git branches.
 
+Configuration:
+You will need to set the following variables in config.rb in the same directory as review.rb:
+# site-specific configuration
+# path to git repo
+REPO = 'c:\\users\\skermes\\projects\\css'
+# if true, all diffs will be done on remote branches
+REMOTE_BRANCHES = false
+# the name of the remote branch to use
+# this only matters if REMOTE_BRANCHES is true
+REMOTE_NAME = 'origin'
+
+
 Here's what you'll need to work on this:
 sinatra (1.3.1)
 haml (3.1.3)
