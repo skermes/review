@@ -8,6 +8,14 @@ REPO = 'c:\\users\\skermes\\projects\\css'
 REMOTE_BRANCHES = false
 REMOTE_NAME = 'origin'
 
+unless (File.directory?(REPO)) then
+  raise <<EOS
+No Git repository at REPO,
+make sure to update the site-specific configuration:
+#{REPO}
+EOS
+end
+
 set :haml, :format => :html5, :ugly => true
 
 def git(cmd)
