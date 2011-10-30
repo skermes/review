@@ -71,3 +71,55 @@ document.addEventListener('readystatechange', function(readyEvent) {
 		document.removeEventListener(arguments.callee);
 	}
 });
+document.addEventListener('keyup', function(keyEvent) {
+	var targetTag = keyEvent.target.tagName.toLowerCase();
+	if (targetTag == 'textarea' || targetTag == 'input') {
+		return;
+	}
+
+	var closestNote = function(distance) {
+		var closest = null
+		var closestDistance = Number.MAX_VALUE;
+
+		for (var i = 0; i < controller.notes.length; i++) {
+			var dist = distance(controller.notes[i]);;
+			if (dist > 0 && dist < closestDistance) {
+				closestDistance = dist;
+				closest = controller.notes[i];
+			}
+		}
+
+		return closest;
+	};
+
+	if (keyEvent.keyCode == 74) { // j
+		var currentCenter = windowPosition().y + window.innerHeight / 2;
+		var calc = function(note) {
+			return Math.floor(note.position().y + (note.size().height / 2) - currentCenter);
+		};
+		var targetNote = closestNote(calc);
+		
+		if (targetNote) {
+			window.scrollBy(0, calc(targetNote));
+			// A quick focus/blur trigger the animation
+			// without giving the note keyboard control
+			targetNote.element.children[0].focus();
+			targetNote.element.children[0].blur();
+		}
+	}
+	else if (keyEvent.keyCode == 75) { // k
+		var currentCenter = windowPosition().y + window.innerHeight / 2;
+		var calc = function(note) {
+			return Math.floor(currentCenter - (note.position().y + (note.size().height / 2)));
+		};
+		var targetNote = closestNote(calc);
+
+		if (targetNote) {
+			window.scrollBy(0, -calc(targetNote));
+			// A quick focus/blur trigger the animation
+			// without giving the note keyboard control
+			targetNote.element.children[0].focus();
+			targetNote.element.children[0].blur();
+		}
+	}
+});
