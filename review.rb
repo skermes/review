@@ -4,12 +4,29 @@ require 'haml'
 require './diffparse'
 require './config'
 
+unless (defined? REPO and
+        defined? REMOTE_BRANCHES and
+        defined? REMOTE_NAME) then
+  STDERR.puts <<EOS
+You must define the following variables in config.rb:
+# path to git repo
+REPO = 'c:\\users\\skermes\\projects\\css'
+# if true, all diffs will be done on remote branches
+REMOTE_BRANCHES = false
+# the name of the remote branch to use
+# this only matters if REMOTE_BRANCHES is true
+REMOTE_NAME = 'origin'
+EOS
+  exit
+end
+
 unless (File.directory?(REPO)) then
-  raise <<EOS
+  STDERR.puts  <<EOS
 No Git repository at REPO,
 make sure to update the site-specific configuration in config.rb:
 #{REPO}
 EOS
+  exit
 end
 
 set :haml, :format => :html5, :ugly => true
