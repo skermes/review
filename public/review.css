@@ -2,8 +2,14 @@ body {
     background-color:rgb(0, 0, 0);    
 }
 
-#diffcontainer {
+.container {
     margin-left:10em;
+}
+
+.container#sticky {
+    position:fixed;
+    background:rgb(0, 0, 0);
+    top:0;
 }
 
 .snippet,

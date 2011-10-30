@@ -45,6 +45,18 @@ function ReviewController() {
     	request.send(data);
     	controller.dirty = false;
     };
+    controller.updateStickies = function() {
+        var top = document.getElementById('sticky').getBoundingClientRect().bottom;
+        var aboveTop = function(snippet) {
+            return top - snippet.getBoundingClientRect().top;
+        }
+        var diff = document.getElementById('diff');
+        var topHeader = closest(aboveTop, diff.getElementsByClassName('header'));
+        var topSeparator = closest(aboveTop, diff.getElementsByClassName('separator'));
+
+        document.getElementById('stickyheader').innerText = topHeader ? topHeader.innerText : "";
+        document.getElementById('stickyseparator').innerText = topSeparator ? topSeparator.innerText : "";
+    };
     controller.initAfterLoad = function() {
     	var existingNotes = document.getElementsByClassName('note');
 	    for (var i = 0; i < existingNotes.length; i++) {
@@ -53,7 +65,8 @@ function ReviewController() {
 	    	controller.notes.push(Note.open(existingNotes[i], controller.noteChanged,
 	    								    controller.removeNote, windowPosition));
 	    }
-    };    
+        controller.updateStickies();
+    };
 
     return controller;
 }
@@ -108,4 +121,7 @@ document.addEventListener('keyup', function(keyEvent) {
         targetNote.element.children[0].focus();
         targetNote.element.children[0].blur();
     }
+});
+window.addEventListener('scroll', function(scrollEvent) {
+    controller.updateStickies();
 });
