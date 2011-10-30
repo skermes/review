@@ -33,16 +33,18 @@ get '/review/:from/to/:to' do
     review(params[:from], params[:to])
 end
 
-post '/:id' do
-    review = File.new("#{params[:id]}.diffbody", 'w')
+post '/:id' do |id|
+    review = File.new("#{id}.diffbody", 'w')
     review.write(params[:diff].tr("\r", ''))
     review.close
 end
 
-get '/:id' do
-    reviewfile = File.open("#{params[:id]}.diffbody", 'r')
+get '/:id' do |id|
+    diffbody = "#{id}.diffbody"
+    return [404, "No diff with id: #{id}"] unless File.exists?(diffbody)
+    reviewfile = File.open(diffbody, 'r')
     @review = reviewfile.read
     reviewfile.close
-    @title = params[:id]
+    @title = id
     haml :reviewed
 end
