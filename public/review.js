@@ -59,8 +59,15 @@ function ReviewController() {
         var topHeader = closest(aboveTop, diff.getElementsByClassName('header'));
         var topSeparator = closest(aboveTop, diff.getElementsByClassName('separator'));
 
-        document.getElementById('stickyheader').innerText = topHeader ? topHeader.innerText : "";
-        document.getElementById('stickyseparator').innerText = topSeparator ? topSeparator.innerText : "";
+        if (topHeader.innerText != undefined) { // Webkit
+            document.getElementById('stickyheader').innerText = topHeader ? topHeader.innerText : "";
+            document.getElementById('stickyseparator').innerText = topSeparator ? topSeparator.innerText : "";
+        }
+        else { // Firefox
+            document.getElementById('stickyheader').textContent = topHeader ? topHeader.textContent : "";
+            document.getElementById('stickyseparator').textContent = topSeparator ? topSeparator.textContent : "";
+        }
+        
     };
     controller.initAfterLoad = function() {
     	var existingNotes = document.getElementsByClassName('note');
@@ -101,7 +108,7 @@ setInterval('controller.updateServer();', 10000);
 document.addEventListener('readystatechange', function(readyEvent) {
 	if (document.readyState == 'complete') {
 		controller.initAfterLoad();
-		document.removeEventListener(arguments.callee);
+		document.removeEventListener('readystatechange', arguments.callee);
 	}
 });
 document.addEventListener('keyup', function(keyEvent) {
