@@ -29,7 +29,12 @@ function ReviewController() {
     controller.updateServer = function() {
     	if (!controller.dirty) { return; }
     	if (!controller.reviewId) {
-    		var id = (new Date()).getTime();
+    		// parentBranch and reviewBranch are defined in the haml
+    		var id = parentBranch.toLowerCase() + '-' +
+    		         reviewBranch.toLowerCase() + '-' +
+    		         // This gives us around 37 reviews of the same branches
+    		         // before we have > 50% chance of id collision
+    		         Math.floor(Math.random() * 100000);
     		history.pushState(null, id + ' review', '/' + id);
     		controller.reviewId = id;
     	}
