@@ -79,7 +79,12 @@ Note = (function() {
             element: element
         };
         note.resize = function() {
-            note.element.children[1].innerText = note.element.children[0].value;
+            if (note.element.children[1].innerText != undefined) { // Webkit
+                note.element.children[1].innerText = note.element.children[0].value;
+            }
+            else { // Firefox
+                note.element.children[1].textContent = note.element.children[0].value;
+            }
         };
         note.position = function() {
             var rect = note.element.getBoundingClientRect();
@@ -92,7 +97,12 @@ Note = (function() {
             // so that it's preserved when posted to the server.
             var value = note.element.children[0].value;
             if (value) {
-                note.element.children[0].innerText = value;
+                if (note.element.children[0].innerText != undefined) { // Webkit
+                    note.element.children[0].innerText = value;
+                }
+                else { // Firefox
+                    note.element.children[0].textContent = value;
+                }
             }
         };
         note.element.addEventListener('keydown', 
