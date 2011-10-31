@@ -83,7 +83,7 @@ Note = (function() {
                 note.element.children[1].innerText = note.element.children[0].value;
             }
             else { // Firefox
-                note.element.children[1].textContent = note.element.children[0].value;
+                note.element.children[1].innerHTML = note.element.children[0].value.replace(/\n/g, '<br>');
             }
         };
         note.position = function() {
