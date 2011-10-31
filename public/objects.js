@@ -12,6 +12,13 @@ function Position(x, y) {
     };
 }
 
+function Size(width, height) {
+    return {
+      width: width,
+      height: height  
+    };
+}
+
 function Class(name) {
     return {
         add: function(elem) {
@@ -91,6 +98,10 @@ Note = (function() {
             var wndw = windowPosition();
             return Position(wndw.x + rect.left,
                             wndw.y + rect.top);
+        };
+        note.size = function() {
+            var rect = note.element.getBoundingClientRect();
+            return Size(rect.right - rect.left, rect.bottom - rect.top);  
         };
         note.saveText = function() {
             // This makes sure the note content is reflected in the HTML,
