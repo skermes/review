@@ -10,7 +10,10 @@
             parentBranch = "#{@parent}";
             reviewBranch = "#{@branch}";
     %body
-        %div#diffcontainer
+        %div.container#sticky
+            %span.snippet.header#stickyheader
+            %span.snippet.separator#stickyseparator
+        %div.container#diff
             - @snippets.each do |snippet|
                 %span.snippet{ :class => "#{snippet[:type]}" } #{snippet[:content].chomp}
         %div#notetemplate.note
