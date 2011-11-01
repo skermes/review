@@ -2,8 +2,14 @@ body {
     background-color:rgb(0, 0, 0);    
 }
 
-#diffcontainer {
+.container {
     margin-left:10em;
+}
+
+.container#sticky {
+    position:fixed;
+    background:rgb(0, 0, 0);
+    top:0;
 }
 
 .snippet,
@@ -59,10 +65,19 @@ body {
     position:absolute;
     overflow:hidden;
     box-shadow:0 0 0 .6em rgb(0,0,0);
+    -moz-transition-property:border-color;
+    -moz-transition-duration:.5s;
+    -webkit-transition-property:border-color;
+    -webkit-transition-duration:.5s;
 }
 
 .note textarea:focus {
     outline:none;
+    border-color:rgb(165, 194, 92);
+    -moz-transition-property:border-color;
+    -moz-transition-duration:0;
+    -webkit-transition-property:border-color;
+    -webkit-transition-duration:0;
 }
 
 .note .notesizer {

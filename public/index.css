@@ -1,0 +1,66 @@
+body,
+.branchselector select {
+    font-family:Inconsolata-dz,Inconsolata,Consolas,monospace;
+    background-color:rgb(0,0,0);
+    color:rgb(230, 230, 230);
+}
+
+a,
+a:visited,
+a:active,
+a:hover {
+    text-decoration:none;
+    color:rgb(165, 194, 92);;
+}
+
+.container {
+    width:40em;
+    margin:auto;
+    display:table;
+}
+
+.header {
+    text-align:center;
+    line-height:3em;
+    margin-top:2em;
+}
+
+.header:first-of-type {
+    margin-top:0;
+}
+
+.availablebranch {
+    display:table-row;
+}
+
+.branchname,
+.masterlink,
+.branchselector {
+    display:table-cell;
+}
+
+.masterlink {
+    text-align:center;
+}
+
+.branchselector {
+    text-align:right;
+}
+
+.branchselector select {
+    width:60%;
+    border:1px solid rgb(40,40,40);
+}
+
+.branchselector a {
+    font-size:125%;
+}
+
+.branchselector input {
+    display:none;
+}
+
+.reviewlink {
+    display:table-row;
+    text-align:center;
+}

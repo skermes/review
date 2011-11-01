@@ -42,8 +42,25 @@ def review(from_branch, to_branch)
     branch_prefix = REMOTE_BRANCHES ? REMOTE_NAME + '/' : ''
     diff = git("diff -U10 --no-color --ignore-space-change #{branch_prefix}#{from_branch}...#{branch_prefix}#{to_branch}")
     @snippets = DiffParsing.parse(:unified, diff)
-    @title = to_branch
+    @branch = to_branch
+    @parent = from_branch
     haml :review, :escape_html => true
+end
+
+get '/review' do
+	branch_switch = REMOTE_BRANCHES ? '-r' : ''
+	output = git("branch --no-color #{branch_switch}")
+	amt_to_remove = 2 + (REMOTE_BRANCHES ? REMOTE_NAME.length + 1 : 0)
+	@branches = output.lines.collect do |line|
+		line[amt_to_remove..-1].chomp
+	end
+	@reviews = Dir.entries('.').select do |entry|
+		entry.end_with?('.diffbody');
+	end
+	@reviews.collect! do |review|
+		review[0..-10]
+	end
+	haml :index
 end
 
 get '/review/:branch' do

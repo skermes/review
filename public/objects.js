@@ -12,6 +12,13 @@ function Position(x, y) {
     };
 }
 
+function Size(width, height) {
+    return {
+      width: width,
+      height: height  
+    };
+}
+
 function Class(name) {
     return {
         add: function(elem) {
@@ -79,7 +86,12 @@ Note = (function() {
             element: element
         };
         note.resize = function() {
-            note.element.children[1].innerText = note.element.children[0].value;
+            if (note.element.children[1].innerText != undefined) { // Webkit
+                note.element.children[1].innerText = note.element.children[0].value;
+            }
+            else { // Firefox
+                note.element.children[1].innerHTML = note.element.children[0].value.replace(/\n/g, '<br>');
+            }
         };
         note.position = function() {
             var rect = note.element.getBoundingClientRect();
@@ -87,12 +99,21 @@ Note = (function() {
             return Position(wndw.x + rect.left,
                             wndw.y + rect.top);
         };
+        note.size = function() {
+            var rect = note.element.getBoundingClientRect();
+            return Size(rect.right - rect.left, rect.bottom - rect.top);  
+        };
         note.saveText = function() {
             // This makes sure the note content is reflected in the HTML,
             // so that it's preserved when posted to the server.
             var value = note.element.children[0].value;
             if (value) {
-                note.element.children[0].innerText = value;
+                if (note.element.children[0].innerText != undefined) { // Webkit
+                    note.element.children[0].innerText = value;
+                }
+                else { // Firefox
+                    note.element.children[0].textContent = value;
+                }
             }
         };
         note.element.addEventListener('keydown', 
