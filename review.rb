@@ -2,11 +2,32 @@ require 'sinatra'
 require 'rubygems'
 require 'haml'
 require './diffparse'
+require './config'
 
-# site-specific configuration
+unless (defined? REPO and
+        defined? REMOTE_BRANCHES and
+        defined? REMOTE_NAME) then
+  STDERR.puts <<EOS
+You must define the following variables in config.rb:
+# path to git repo
 REPO = 'c:\\users\\skermes\\projects\\css'
+# if true, all diffs will be done on remote branches
 REMOTE_BRANCHES = false
+# the name of the remote branch to use
+# this only matters if REMOTE_BRANCHES is true
 REMOTE_NAME = 'origin'
+EOS
+  exit
+end
+
+unless (File.directory?(REPO)) then
+  STDERR.puts  <<EOS
+No Git repository at REPO,
+make sure to update the site-specific configuration in config.rb:
+#{REPO}
+EOS
+  exit
+end
 
 set :haml, :format => :html5, :ugly => true
 
@@ -19,7 +40,7 @@ def review(from_branch, to_branch)
         git('fetch')
     end
     branch_prefix = REMOTE_BRANCHES ? REMOTE_NAME + '/' : ''
-    diff = git("diff -U10 --ignore-space-change #{branch_prefix}#{from_branch}...#{branch_prefix}#{to_branch}")
+    diff = git("diff -U10 --no-color --ignore-space-change #{branch_prefix}#{from_branch}...#{branch_prefix}#{to_branch}")
     @snippets = DiffParsing.parse(:unified, diff)
     @branch = to_branch
     @parent = from_branch
@@ -50,16 +71,18 @@ get '/review/:from/to/:to' do
     review(params[:from], params[:to])
 end
 
-post '/:id' do
-    review = File.new("#{params[:id]}.diffbody", 'w')
+post '/:id' do |id|
+    review = File.new("#{id}.diffbody", 'w')
     review.write(params[:diff].tr("\r", ''))
     review.close
 end
 
-get '/:id' do
-    reviewfile = File.open("#{params[:id]}.diffbody", 'r')
+get '/:id' do |id|
+    diffbody = "#{id}.diffbody"
+    return [404, "No diff with id: #{id}"] unless File.exists?(diffbody)
+    reviewfile = File.open(diffbody, 'r')
     @review = reviewfile.read
     reviewfile.close
-    @title = params[:id]
+    @title = id
     haml :reviewed
 end
