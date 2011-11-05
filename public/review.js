@@ -130,8 +130,10 @@ document.addEventListener('keyup', function(keyEvent) {
         window.scrollBy(0, (up ? -1 : 1)*calc(targetNote));
         // A quick focus/blur trigger the animation
         // without giving the note keyboard control
-        targetNote.element.children[0].focus();
-        targetNote.element.children[0].blur();
+        targetNote.element.children[0].style.borderColor = "rgb(165, 194, 92)";
+        setTimeout(function() {
+                targetNote.element.children[0].style.borderColor = "";
+            }, 500);
     }
 });
 window.addEventListener('scroll', function(scrollEvent) {
