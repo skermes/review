@@ -14,7 +14,7 @@
             %span.snippet.header#stickyheader
             %span.snippet.separator#stickyseparator
         %div.container#diff
-            %span.snippet.header Summary
+            %span.snippet.header Summary: #{@shortstat.chomp}
             %div.summary
                 %span.snippet.separator Diffing #{@branch}:
                 %span.snippet.from #{@branch_text.chomp}
