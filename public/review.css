@@ -1,15 +1,19 @@
 body {
     background-color:rgb(0, 0, 0);
     margin-top: 8px;
+    margin-left: 0px;
 }
 
 .container {
-    margin-left:10em;
+    margin-left:8px;
 }
 
 .container#sticky {
     position:fixed;
     background:rgb(0, 0, 0);
+    left: 0;
+    margin-left: 0;
+    padding-left:8px;
     padding-top:8px;
     top:0;
     width:100%;
