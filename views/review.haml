@@ -14,6 +14,12 @@
             %span.snippet.header#stickyheader
             %span.snippet.separator#stickyseparator
         %div.container#diff
+            %span.snippet.header Summary
+            %div.summary
+                %span.snippet.separator Diffing #{@branch}:
+                %span.snippet.from #{@branch_text.chomp}
+                %span.snippet.separator Against #{@parent}:
+                %span.snippet.to #{@parent_text.chomp}
             - @snippets.each do |snippet|
                 %span.snippet{ :class => "#{snippet[:type]}" } #{snippet[:content].chomp}
         %div#notetemplate.note

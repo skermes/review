@@ -31,7 +31,12 @@ body {
     display:block;
 }
 
+.summary {
+    padding-bottom:1em;
+}
+
 .raw,
+.summary,
 .note textarea {
     color:rgb(230, 230, 230);
 }
