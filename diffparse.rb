@@ -75,6 +75,7 @@ module DiffParsing
         snippets = []
         diff.each_line do |line|
             if line.start_with?('diff')
+                ensure_separator(snippets)
                 snippet = Hash.new do |hash, key|
                     case (key)
                         when (:visible1) then hash[key] = get_line(hash[:content], 0)
@@ -103,14 +104,26 @@ module DiffParsing
             elsif line.start_with?('@@')
                 snippets << { :content => line, :type => :separator }
             elsif line.start_with?('+')
+                ensure_separator(snippets)
                 snippets << { :content => line, :type => :addition }
             elsif line.start_with?('-')
+                ensure_separator(snippets)
                 snippets << { :content => line, :type => :subtraction }
             else
+                ensure_separator(snippets)
                 snippets << { :content => line, :type => :raw }
             end
         end
         snippets
+    end
+
+    def DiffParsing.ensure_separator(snippets)
+        if (snippets.nil? or snippets.empty?)
+            return
+        end
+        if (snippets[-1][:type] == :header) then
+            snippets << { :content => " ", :type => :separator }
+        end
     end
 
     def DiffParsing.get_line(string, index)
