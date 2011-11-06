@@ -31,6 +31,10 @@ body {
     display:block;
 }
 
+.snippet.header {
+    white-space:nowrap;
+}
+
 .summary {
     padding-bottom:1em;
 }
