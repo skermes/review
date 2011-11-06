@@ -40,8 +40,8 @@ def review(from_branch, to_branch)
         git('fetch')
     end
     branch_prefix = REMOTE_BRANCHES ? REMOTE_NAME + '/' : ''
-    @shortstat = git("diff --no-color --shortstat #{branch_prefix}#{from_branch}...#{branch_prefix}#{to_branch}")
-    diff = git("diff -U10 --no-color --ignore-space-change #{branch_prefix}#{from_branch}...#{branch_prefix}#{to_branch}")
+    @shortstat = git("diff --no-color --shortstat -M #{branch_prefix}#{from_branch}...#{branch_prefix}#{to_branch}")
+    diff = git("diff -U10 --no-color --ignore-space-change -M #{branch_prefix}#{from_branch}...#{branch_prefix}#{to_branch}")
     @branch_text = git("log --no-color -n1 --pretty=medium #{branch_prefix}#{to_branch}")
     @parent_text = git("log --no-color -n1 --pretty=medium #{branch_prefix}#{from_branch}")
     @snippets = DiffParsing.parse(:unified, diff)
