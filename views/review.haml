@@ -14,8 +14,23 @@
             %span.snippet.header#stickyheader
             %span.snippet.separator#stickyseparator
         %div.container#diff
+            %span.snippet.header
+                Summary:
+                %br
+                #{@shortstat.chomp}
+            %div.summary
+                %span.snippet.separator Diffing #{@branch}:
+                %span.snippet.from #{@branch_text.chomp}
+                %span.snippet.separator Against #{@parent}:
+                %span.snippet.to #{@parent_text.chomp}
             - @snippets.each do |snippet|
-                %span.snippet{ :class => "#{snippet[:type]}" } #{snippet[:content].chomp}
+                - if (snippet[:type] == :header) then
+                    %span.snippet{ :class => 'header' }
+                        #{snippet[:visible1].chomp}
+                        %br
+                        #{snippet[:visible2].chomp}
+                - else
+                    %span.snippet{ :class => "#{snippet[:type]}" } #{snippet[:content].chomp}
         %div#notetemplate.note
             %textarea
             %div.notesizer
