@@ -50,13 +50,19 @@ def review(from_branch, to_branch)
     haml :review, :escape_html => true
 end
 
+def branches()
+    if REMOTE_BRANCHES        
+        git("ls-remote -h #{REMOTE_NAME}").lines.collect { |line| line[52..-1].chomp }
+    else
+        git('branch').lines.collect { |line| line[2..-1].chomp }
+    end
+end
+
 get '/review' do
 	branch_switch = REMOTE_BRANCHES ? '-r' : ''
 	output = git("branch --no-color #{branch_switch}")
 	amt_to_remove = 2 + (REMOTE_BRANCHES ? REMOTE_NAME.length + 1 : 0)
-	@branches = output.lines.collect do |line|
-		line[amt_to_remove..-1].chomp
-	end
+	@branches = branches()
 	@reviews = Dir.entries('.').select do |entry|
 		entry.end_with?('.diffbody');
 	end
