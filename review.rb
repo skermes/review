@@ -67,7 +67,7 @@ def reviews()
     diffs.collect { |diff| diff[0..-10] }
 end
 
-get '/review' do
+get '/review/?' do
 	branch_switch = REMOTE_BRANCHES ? '-r' : ''
 	output = git("branch --no-color #{branch_switch}")
 	amt_to_remove = 2 + (REMOTE_BRANCHES ? REMOTE_NAME.length + 1 : 0)
@@ -76,21 +76,21 @@ get '/review' do
 	haml :index
 end
 
-get '/review/:branch' do
+get '/review/:branch/?' do
     review('master', params[:branch])
 end
 
-get '/review/:from/to/:to' do
+get '/review/:from/to/:to/?' do
     review(params[:from], params[:to])
 end
 
-post '/:id' do |id|
+post '/:id/?' do |id|
     review = File.new("#{id}.diffbody", 'w')
     review.write(params[:diff].tr("\r", ''))
     review.close
 end
 
-get '/:id' do |id|
+get '/:id/?' do |id|
     diffbody = "#{id}.diffbody"
     return [404, haml(:diff404, :locals => { :id => id, :reviews => reviews() })] unless File.exists?(diffbody)
     reviewfile = File.open(diffbody, 'r')
