@@ -62,17 +62,17 @@ def branches()
     end
 end
 
+def reviews()
+    diffs = Dir.entries('.').select { |entry| entry.end_with? '.diffbody' }
+    diffs.collect { |diff| diff[0..-10] }
+end
+
 get '/review' do
 	branch_switch = REMOTE_BRANCHES ? '-r' : ''
 	output = git("branch --no-color #{branch_switch}")
 	amt_to_remove = 2 + (REMOTE_BRANCHES ? REMOTE_NAME.length + 1 : 0)
 	@branches = branches()
-	@reviews = Dir.entries('.').select do |entry|
-		entry.end_with?('.diffbody');
-	end
-	@reviews.collect! do |review|
-		review[0..-10]
-	end
+	@reviews = reviews()
 	haml :index
 end
 
@@ -92,7 +92,7 @@ end
 
 get '/:id' do |id|
     diffbody = "#{id}.diffbody"
-    return [404, "No diff with id: #{id}"] unless File.exists?(diffbody)
+    return [404, haml(:diff404, :locals => { :id => id, :reviews => reviews() })] unless File.exists?(diffbody)
     reviewfile = File.open(diffbody, 'r')
     @review = reviewfile.read
     reviewfile.close
