@@ -36,6 +36,10 @@ def git(cmd)
 end
 
 def review(from_branch, to_branch)
+    @branches = branches()
+    return [404, haml(:branch404, :locals => { :branch => to_branch })] unless @branches.index(to_branch) != nil
+    return [404, haml(:branch404, :locals => { :branch => from_branch })] unless @branches.index(from_branch) != nil
+
     if REMOTE_BRANCHES
         git('fetch')
     end
@@ -54,7 +58,7 @@ def branches()
     if REMOTE_BRANCHES        
         git("ls-remote -h #{REMOTE_NAME}").lines.collect { |line| line[52..-1].chomp }
     else
-        git('branch').lines.collect { |line| line[2..-1].chomp }
+        git('branch --no-color').lines.collect { |line| line[2..-1].chomp }
     end
 end
 

@@ -1,0 +1,28 @@
+!!!
+%html
+    %head
+        %title Branch not found!
+        %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/index.css' }
+        %script{ :src => '/index.js', :type => 'text/javascript' }
+        :css
+            .error {
+                color:rgb(198, 66, 84);
+            }
+    %body
+        %div.header.error
+            This repository doesn't seem to have a branch #{branch}
+        %div.header
+            Try using one of these instead
+        %div.container            
+            - @branches.each do |branch|
+                %div.availablebranch
+                    %div.branchname #{branch}
+                    %div.masterlink
+                        %a{ :href => "/review/#{branch}" } master
+                    %div.branchselector                        
+                        %select
+                            - (@branches - [branch]).each do |parent|
+                                %option #{parent}
+                        %a{ :href => '#'}
+                            &#x21e8;
+                        %input{ :type => 'text', :value => "#{branch}" }
