@@ -41,7 +41,7 @@ def review(from_branch, to_branch)
     return [404, haml(:branch404, :locals => { :branch => from_branch })] unless @branches.index(from_branch) != nil
 
     if REMOTE_BRANCHES
-        git('fetch')
+        git("fetch #{REMOTE_NAME} #{from_branch} #{to_branch}")
     end
     branch_prefix = REMOTE_BRANCHES ? REMOTE_NAME + '/' : ''
     @shortstat = git("diff --no-color --shortstat -M #{branch_prefix}#{from_branch}...#{branch_prefix}#{to_branch}")
