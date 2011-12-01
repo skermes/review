@@ -8,5 +8,6 @@
         %script{ :src => '/objects.js', :type => 'text/javascript' }
         :javascript
             controller.reviewId = "#{@title}";
+            repository = "#{@repo}";
     %body
         ~ @review

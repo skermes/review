@@ -35,7 +35,7 @@ function ReviewController() {
     		         // This gives us around 37 reviews of the same branches
     		         // before we have > 50% chance of id collision
     		         Math.floor(Math.random() * 100000);
-    		history.pushState(null, id + ' review', '/' + id);
+    		history.pushState(null, id + ' review', '/' + repository + '/' + id);
     		controller.reviewId = id;
     	}
 
@@ -46,7 +46,7 @@ function ReviewController() {
     	var data = new FormData();
     	data.append('diff', document.body.innerHTML);
     	var request = new XMLHttpRequest();
-    	request.open('POST', '/' + controller.reviewId, true);
+    	request.open('POST', '/' + repository + '/' + controller.reviewId, true);
     	request.send(data);
     	controller.dirty = false;
     };

@@ -4,6 +4,8 @@
         %title review index
         %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/index.css' }
         %script{ :src => '/index.js', :type => 'text/javascript' }
+        :javascript
+            var repository = "#{@repo}";
     %body
         %div.header
             Available branches for reviewing
@@ -12,7 +14,7 @@
                 %div.availablebranch
                     %div.branchname #{branch}
                     %div.masterlink
-                        %a{ :href => "/review/#{branch}" } master
+                        %a{ :href => "/review/#{@repo}/#{branch}" } master
                     %div.branchselector                        
                         %select
                             - (@branches - [branch]).each do |parent|
@@ -25,4 +27,4 @@
         %div.container
             - @reviews.each do |review|
                 %div.reviewlink
-                    %a{ :href => "/#{review}" } #{review}
+                    %a{ :href => "/#{@repo}/#{review}" } #{review}

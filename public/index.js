@@ -4,7 +4,7 @@ document.addEventListener('readystatechange', function(readyEvent) {
             var parent = selector.children[0].value;
             var link = selector.children[1];
             var branch = selector.children[2].value;
-            link.href = '/review/' + parent + '/to/' + branch;
+            link.href = '/review/' + repository + '/' + parent + '/to/' + branch;
         };
 
         var selectors = document.getElementsByClassName('branchselector');
