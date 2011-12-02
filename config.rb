@@ -23,6 +23,10 @@ module Config
 		end
 	end
 
+    def Config.has_repo?(name)
+        repo_names().index(name) != nil
+    end
+
 	def Config.repo(name)
 		matches = prop(:repositories).keep_if { |repo| repo['name'] == name }
 		if matches.length > 0
