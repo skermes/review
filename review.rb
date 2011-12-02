@@ -50,7 +50,7 @@ def reviews(repo)
     diffs.collect { |diff| diff[0..-10] }
 end
 
-get '/review' do
+get '/review/?' do
     @repo_names = Config.repo_names()
     haml :repolist
 end
