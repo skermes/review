@@ -11,9 +11,9 @@ document.addEventListener('readystatechange', function(readyEvent) {
         for (var i = 0; i < selectors.length; i++) {
             var dropdown = selectors[i].children[0];
             dropdown.addEventListener('change', function(changeEvent) {
-                updateLink(changeEvent.target.parentNode);;
+                updateLink(changeEvent.target.parentNode);
             });
-            updateLink(selectors[i]);;
+            updateLink(selectors[i]);
         }
     }
 });
