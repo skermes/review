@@ -15,7 +15,8 @@ def git(repo, cmd)
 end
 
 def review(repo, from_branch, to_branch)
-    @branches = branches(repo)
+    return [404, haml(:repo404, :locals => { :repo => repo, :repo_names => Config.repo_names() })] unless Config.has_repo?(repo)
+    @branches = branches(repo)    
     return [404, haml(:branch404, :locals => { :branch => to_branch })] unless @branches.index(to_branch) != nil
     return [404, haml(:branch404, :locals => { :branch => from_branch })] unless @branches.index(from_branch) != nil
 
@@ -57,6 +58,7 @@ end
 
 get '/review/:repository/?' do
     @repo = params[:repository]
+    return [404, haml(:repo404, :locals => { :repo => @repo, :repo_names => Config.repo_names() })] unless Config.has_repo?(@repo)
     remote = Config.repo_remote?(@repo)
 	branch_switch = remote ? '-r' : ''
 	output = git(@repo, "branch --no-color #{branch_switch}")
@@ -84,12 +86,13 @@ post '/:repository/:id/?' do |repository, id|
 end
 
 get '/:repository/:id/?' do |repository, id|
+    @repo = repository
+    return [404, haml(:repo404, :locals => { :repo => @repo, :repo_names => Config.repo_names() })] unless Config.has_repo?(@repo)
     diffbody = "#{repository}/#{id}.diffbody"
-    return [404, haml(:diff404, :locals => { :id => id, :reviews => reviews() })] unless File.exists?(diffbody)
+    return [404, haml(:diff404, :locals => { :id => id, :reviews => reviews(@repo) })] unless File.exists?(diffbody)
     reviewfile = File.open(diffbody, 'r')
     @review = reviewfile.read
     reviewfile.close
-    @title = id
-    @repo = repository
+    @title = id    
     haml :reviewed
 end

@@ -1,0 +1,14 @@
+!!!
+%html
+    %head
+        %title Repository not found!
+        %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/index.css' }
+    %body
+        %div.header.error
+            A repository named #{repo} doesn't seem to exist on this server.
+        %div.header
+            Where you looking for one of these repositories?
+        %div.container
+            - repo_names.each do |repo|
+                %div.repositorylink
+                    %a{ :href => "/review/#{repo}" } #{repo}

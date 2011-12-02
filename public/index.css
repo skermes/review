@@ -65,3 +65,7 @@ a:hover {
     display:table-row;
     text-align:center;
 }
+
+.error {
+    color:rgb(198, 66, 84);   
+}
