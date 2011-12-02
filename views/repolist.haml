@@ -1,0 +1,12 @@
+!!!
+%html
+    %head
+        %title repository index
+        %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/index.css' }
+    %body
+        %div.header
+            Available repositories
+        %div.container
+            - @repo_names.each do |repo|
+                %div.repositorylink
+                    %a{ :href => "/review/#{repo}" } #{repo}

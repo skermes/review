@@ -60,7 +60,8 @@ a:hover {
     display:none;
 }
 
-.reviewlink {
+.reviewlink,
+.repositorylink {
     display:table-row;
     text-align:center;
 }

@@ -50,6 +50,11 @@ def reviews(repo)
     diffs.collect { |diff| diff[0..-10] }
 end
 
+get '/review' do
+    @repo_names = Config.repo_names()
+    haml :repolist
+end
+
 get '/review/:repository/?' do
     @repo = params[:repository]
     remote = Config.repo_remote?(@repo)
