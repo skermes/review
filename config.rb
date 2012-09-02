@@ -1,14 +1,14 @@
 require 'json'
 
-module Config
+module RbConfig
 	CONFIG_FILE = 'config.json'
 
-	def Config.parse()
+	def RbConfig.parse()
 		data = File.open(CONFIG_FILE, 'r').read
 		JSON::Ext::Parser.new(data).parse
 	end
 
-	def Config.prop(name)
+	def RbConfig.prop(name)
 		parse[name.to_s]
 	end
 
@@ -17,17 +17,17 @@ module Config
 	# config to do, so they might as well 
 	# be pretty
 
-	def Config.repo_names()
+	def RbConfig.repo_names()
 		prop(:repositories).collect do |repo|
 			repo['name']
 		end
 	end
 
-    def Config.has_repo?(name)
+    def RbConfig.has_repo?(name)
         repo_names().index(name) != nil
     end
 
-	def Config.repo(name)
+	def RbConfig.repo(name)
 		matches = prop(:repositories).keep_if { |repo| repo['name'] == name }
 		if matches.length > 0
 			matches[0]
@@ -36,15 +36,15 @@ module Config
 		end
 	end
 
-	def Config.repo_loc(name)
+	def RbConfig.repo_loc(name)
 		repo(name)['location']
 	end
 
-	def Config.repo_remote?(name)
+	def RbConfig.repo_remote?(name)
 		repo(name)['use_remote']
 	end
 
-	def Config.repo_remote_name(name)
+	def RbConfig.repo_remote_name(name)
 		repo(name)['remote_name']
 	end
 end
