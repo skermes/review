@@ -7,23 +7,9 @@
         %script{ :src => '/review.js', :type => 'text/javascript' }
         %script{ :src => '/objects.js', :type => 'text/javascript' }
         %script{ :src => '/jquery-1.8.1.min.js', :type => 'text/javascript' }
+        %script{ :src => '/js/themeswitcher.js', :type => 'text/javascript' }
         :javascript
             controller.reviewId = "#{@title}";
             repository = "#{@repo}";
-
-            $(document).ready(function() {
-                
-                //Reset starting color
-                //TODO: use cookies
-                $("#ToggleThemeBtn").attr('rel','/css/reviewthemes/light.css');
-            
-                $("#ToggleThemeBtn").click(function() {
-                var oldRel = $("link").attr('href');
-                $("link").attr("href",$(this).attr('rel'));
-                $(this).attr('rel',oldRel);
-                    return false;
-                });
-            });
-
     %body
         ~ @review
