@@ -11,7 +11,21 @@
             parentBranch = "#{@parent}";
             reviewBranch = "#{@branch}";
             repository = "#{@repo}";
+        :javascript
+            controller.reviewId = "#{@title}";
+            repository = "#{@repo}";
+
+            $(document).ready(function() {
+                $("#ToggleThemeBtn").click(function() {
+                var oldRel = $("link").attr('href');
+                $("link").attr("href",$(this).attr('rel'));
+                $(this).attr('rel',oldRel);
+                    return false;
+                });
+            });
     %body
+        %div#themeswitcher
+        %div#ToggleThemeBtn{:rel => '/lighttheme.css'}
         %div.container#sticky
             %span.snippet.header#stickyheader
             %span.snippet.separator#stickyseparator
