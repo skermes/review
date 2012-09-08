@@ -12,6 +12,11 @@
             repository = "#{@repo}";
 
             $(document).ready(function() {
+                
+                //Reset starting color
+                //TODO: use cookies
+                $("#ToggleThemeBtn").attr('rel','/lighttheme.css');
+            
                 $("#ToggleThemeBtn").click(function() {
                 var oldRel = $("link").attr('href');
                 $("link").attr("href",$(this).attr('rel'));
