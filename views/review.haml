@@ -3,7 +3,7 @@
     %head
         %title
             #{@branch} review
-        %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/review.css' }
+        %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/css/reviewthemes/dark.css' }
         %script{ :src => '/jquery-1.8.1.min.js', :type => 'text/javascript' }		
         %script{ :src => '/review.js', :type => 'text/javascript' }
         %script{ :src => '/objects.js', :type => 'text/javascript' }
@@ -25,7 +25,7 @@
             });
     %body
         %div#themeswitcher
-            %div#ToggleThemeBtn{:rel => '/lighttheme.css'}
+            %div#ToggleThemeBtn{:rel => '/css/reviewthemes/light.css'}
         %div.container#sticky
             %span.snippet.header#stickyheader
             %span.snippet.separator#stickyseparator
