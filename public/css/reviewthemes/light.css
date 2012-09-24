@@ -14,8 +14,7 @@ body {
     left: 0;
     margin-left: 0;
     padding-left:8px;
-    padding-top:8px;
-    top:0;
+    top:25px;
     width:100%;
 }
 
@@ -133,10 +132,20 @@ body {
     visibility:visible;
 }
 
+#menu{
+    background: none repeat scroll 0 0 #FFF;
+    height: 25px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
 #ToggleThemeBtn{
     width:15px;
     height:15px;
     float:right;
     cursor:pointer;    
-    background-color:#000; 
+    background-color:#000;
+    margin:5px;
 }
