@@ -45,12 +45,11 @@ body {
 }
 
 .subtraction {
-    color:rgb(255, 0, 0);
-    color:rgb(255, 0, 0);
+    color:rgb(220, 0, 0);
 }
 
 .addition {
-    color:rgb(0, 125, 0);
+    color:rgb(50, 178, 14);
 }
 
 .separator {
